@@ -1,8 +1,12 @@
 # Crash Courses
 
-Applied, notebook-based explorations of computer science concepts.
+Crash Courses is a growing collection of applied, notebook-based introductions to computer science concepts. Each course is designed to give a practical, approachable foundation in a focused topic without requiring a full-length curriculum.
 
-This repository starts with machine learning. Rather than introducing each model with a different dataset, the notebooks reuse a shared housing-prices dataset and build from one idea to the next. That makes it easier to compare what each model is designed to do, how its predictions differ, and which tradeoffs matter in a practical setting.
+The current focus is data science and machine learning. Rather than introducing each model with a different dataset, the notebooks reuse a shared housing-prices dataset and build from one idea to the next. That makes it easier to compare what each model is designed to do, how its predictions differ, and which tradeoffs matter in a practical setting.
+
+## Learning Approach
+
+The notebooks are intentionally text-heavy. The detailed explanations are there to make each concept approachable and to encourage you to pause at every step: understand what each line of code does, why it belongs in the workflow, and how it affects the model's result.
 
 ## Contents
 
@@ -10,7 +14,8 @@ This repository starts with machine learning. Rather than introducing each model
 
 | Topic | Notebook | What it covers |
 | --- | --- | --- |
-| Supervised and unsupervised learning | [Supervised Housing Prices](supervised_housing_prices.ipynb) | Uses housing data to introduce supervised learning models, compare their behavior on related problems, and set up the transition to unsupervised learning. |
+| Supervised learning | [Supervised Housing Prices](supervised_housing_prices.ipynb) | Uses housing data to introduce predictive models, compare their behavior on related problems, and explore classification tradeoffs. |
+| Unsupervised learning | [Unsupervised Housing Prices](unsupervised_housing_prices.ipynb) | Uses the same housing dataset to introduce finding patterns without predefined labels or a target variable. |
 
 #### Supervised Learning Models
 
@@ -23,15 +28,20 @@ The current notebook works through these models in sequence:
 
 Along the way, the notebook also introduces train/test splits, regression summaries, predicted probabilities, confusion matrices, accuracy, precision, recall, F1 score, feature importance, overfitting, class imbalance, and data leakage.
 
-#### Unsupervised Learning
+#### Unsupervised Learning Models
 
-The notebook introduces the core idea behind unsupervised learning: finding structure in feature data without a predefined target or ground-truth labels. More unsupervised examples will be added here as the course develops.
+The unsupervised notebook introduces the shift from predicting a known target to finding structure in feature data without ground-truth labels. It outlines four major families of unsupervised models:
+
+1. **Clustering**: groups similar observations, such as with K-Means or DBSCAN.
+2. **Dimensionality reduction**: represents high-dimensional data with fewer features, such as with PCA or t-SNE.
+3. **Association-rule learning**: finds relationships and co-occurrence patterns, such as with Apriori or Eclat.
+4. **Anomaly detection**: identifies unusual observations, such as with Isolation Forest or One-Class SVM.
 
 ## Data
 
 The current notebook downloads the [Housing Prices Dataset](https://www.kaggle.com/datasets/yasserh/housing-prices-dataset) with `kagglehub`. A local `Housing.csv` is also included for convenience.
 
-## Running the Notebook
+## Running the Notebooks
 
 Install the Python packages used by the notebook:
 
@@ -39,7 +49,7 @@ Install the Python packages used by the notebook:
 pip install kagglehub pandas matplotlib scikit-learn statsmodels
 ```
 
-Then open [Supervised Housing Prices](supervised_housing_prices.ipynb) in Jupyter or VS Code and run the cells in order.
+Open [Supervised Housing Prices](supervised_housing_prices.ipynb) or [Unsupervised Housing Prices](unsupervised_housing_prices.ipynb) in Jupyter or VS Code and run the cells in order.
 
 ## Future Topics
 

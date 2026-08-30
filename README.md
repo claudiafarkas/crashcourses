@@ -14,7 +14,7 @@ The notebooks are intentionally text-heavy. Each one should make the reasoning v
 
 ## Start Here
 
-Start with [Unit 0: Foundations & Models](unit0_foundations_and_models/README.md). Then move to [Unit 1: Modern ML & Responsible AI](unit1_modern_ml_and_responsible_ai/README.md) to build the highest-leverage portfolio pieces. Complete either the churn or forecasting project in [Unit 3: Applied Case Studies](unit3_applied_case_studies/README.md) before trying to finish the full curriculum.
+Think of [Foundations & Models](models_overview/README.md) as Unit 0: it establishes the workflow used across the repository. The remaining topic areas can stand on their own, though the recommended learning path is to explore [Modern ML & Responsible AI](modern_ml/README.md) next and complete either the churn or forecasting project in [Applied Case Studies](case_studies/README.md) before trying to finish everything else.
 
 ## Table of Contents
 
@@ -22,46 +22,46 @@ Start with [Unit 0: Foundations & Models](unit0_foundations_and_models/README.md
 
 | Notebook | Focus |
 | --- | --- |
-| [Preprocessing](unit0_foundations_and_models/preprocessing.ipynb) | Missing values, encoding, scaling, transformations, and leakage-safe pipelines. |
-| [Supervised Learning](unit0_foundations_and_models/supervised_learning.ipynb) | Regression and classification with the housing-prices dataset. |
-| [Model Evaluation & Error Analysis](unit0_foundations_and_models/model_evaluation_error_analysis.ipynb) | Baselines, validation, metrics, thresholds, calibration, and error slices. |
-| [Unsupervised Learning](unit0_foundations_and_models/unsupervised_learning.ipynb) | Finding structure in unlabeled data. |
+| [Preprocessing](models_overview/preprocessing.ipynb) | Missing values, encoding, scaling, transformations, and leakage-safe pipelines. |
+| [Supervised Learning](models_overview/supervised_learning.ipynb) | Regression and classification with the housing-prices dataset. |
+| [Model Evaluation & Error Analysis](models_overview/model_evaluation_error_analysis.ipynb) | Baselines, validation, metrics, thresholds, calibration, and error slices. |
+| [Unsupervised Learning](models_overview/unsupervised_learning.ipynb) | Finding structure in unlabeled data. |
 
 ### Unit 1: Modern ML & Responsible AI
 
 | Notebook | Focus |
 | --- | --- |
-| [RAG from Scratch](unit1_modern_ml_and_responsible_ai/rag_from_scratch.ipynb) | Ingestion, chunking, embeddings, retrieval, generation, and failure modes. |
-| [LLM Evaluation](unit1_modern_ml_and_responsible_ai/llm_evaluation.ipynb) | Evaluation sets, retrieval quality, groundedness, relevance, latency, and cost. |
-| [Model Explainability](unit1_modern_ml_and_responsible_ai/model_explainability.ipynb) | Global and local explanations, importance, partial dependence, and SHAP. |
-| [Responsible AI & Fairness](unit1_modern_ml_and_responsible_ai/responsible_ai_fairness.ipynb) | Bias, proxy variables, subgroup evaluation, privacy, and safeguards. |
+| [RAG from Scratch](modern_ml/rag_from_scratch.ipynb) | Ingestion, chunking, embeddings, retrieval, generation, and failure modes. |
+| [LLM Evaluation](modern_ml/llm_evaluation.ipynb) | Evaluation sets, retrieval quality, groundedness, relevance, latency, and cost. |
+| [Model Explainability](modern_ml/model_explainability.ipynb) | Global and local explanations, importance, partial dependence, and SHAP. |
+| [Responsible AI & Fairness](modern_ml/responsible_ai_fairness.ipynb) | Bias, proxy variables, subgroup evaluation, privacy, and safeguards. |
 
 ### Unit 2: DS Interview Fundamentals
 
 | Notebook | Focus |
 | --- | --- |
-| [SQL for Data Science](unit2_ds_interview_fundamentals/sql_for_data_science.ipynb) | Joins, CTEs, window functions, cohorts, funnels, and data-quality checks. |
-| [Statistics & Probability](unit2_ds_interview_fundamentals/statistics_probability.ipynb) | Distributions, inference, hypothesis tests, and common reasoning traps. |
-| [A/B Testing & Experiment Design](unit2_ds_interview_fundamentals/ab_testing_experiment_design.ipynb) | Metrics, power, effect size, significance, and experimental failure modes. |
-| [Time Series & Forecasting](unit2_ds_interview_fundamentals/time_series_forecasting.ipynb) | Chronological validation, baselines, trend, seasonality, and uncertainty. |
-| [Python Coding Patterns](unit2_ds_interview_fundamentals/python_coding_patterns.ipynb) | Complexity and reusable interview patterns for data-oriented coding problems. |
+| [SQL for Data Science](interview_fundamentals/sql_for_data_science.ipynb) | Joins, CTEs, window functions, cohorts, funnels, and data-quality checks. |
+| [Statistics & Probability](interview_fundamentals/statistics_probability.ipynb) | Distributions, inference, hypothesis tests, and common reasoning traps. |
+| [A/B Testing & Experiment Design](interview_fundamentals/ab_testing_experiment_design.ipynb) | Metrics, power, effect size, significance, and experimental failure modes. |
+| [Time Series & Forecasting](interview_fundamentals/time_series_forecasting.ipynb) | Chronological validation, baselines, trend, seasonality, and uncertainty. |
+| [Python Coding Patterns](interview_fundamentals/python_coding_patterns.ipynb) | Complexity and reusable interview patterns for data-oriented coding problems. |
 
 ### Unit 3: Applied Case Studies
 
 | Project | Focus |
 | --- | --- |
-| [Traditional DS Case Study](unit3_applied_case_studies/traditional_ds_case_study/) | Choose customer churn or demand forecasting; show a baseline, validation, tuning, error analysis, and business recommendation. |
-| [Resume-Job Match RAG](unit3_applied_case_studies/resume_job_match_rag/) | Apply the RAG and evaluation units to a grounded resume and job-description retrieval system. |
+| [Traditional DS Case Study](case_studies/traditional_ds_case_study/) | Choose customer churn or demand forecasting; show a baseline, validation, tuning, error analysis, and business recommendation. |
+| [Resume-Job Match RAG](case_studies/resume_job_match_rag/) | Apply the RAG and evaluation units to a grounded resume and job-description retrieval system. |
 
 ### Unit 4: ML System Design
 
 | Notebook | Focus |
 | --- | --- |
-| [ML System Design Exercises](unit4_ml_system_design/ml_system_design_exercises.ipynb) | Targets, data sources, metrics, inference modes, monitoring, drift, retraining, and rollback. |
+| [ML System Design Exercises](ml_system_design/ml_system_design_exercises.ipynb) | Targets, data sources, metrics, inference modes, monitoring, drift, retraining, and rollback. |
 
 ### Unit 5: Engineering Practices
 
-Engineering practices are applied throughout the repository: clear project documentation, reproducible environments, reusable code where warranted, focused tests, configuration, and saved pipelines. See [Unit 5: Engineering Practices](unit5_engineering_practices/README.md).
+Engineering practices are applied throughout the repository: clear project documentation, reproducible environments, reusable code where warranted, focused tests, configuration, and saved pipelines. See [Engineering Practices](engineering_practices/README.md).
 
 ## Learning Approach
 
@@ -76,7 +76,7 @@ Each notebook should follow a consistent shape:
 
 ## Current Data
 
-The supervised and unsupervised learning notebooks use the [Housing Prices Dataset](https://www.kaggle.com/datasets/yasserh/housing-prices-dataset). A local copy is available at [unit0_foundations_and_models/datasets/Housing.csv](unit0_foundations_and_models/datasets/Housing.csv), and the notebooks can also download the dataset with `kagglehub`.
+The supervised and unsupervised learning notebooks use the [Housing Prices Dataset](https://www.kaggle.com/datasets/yasserh/housing-prices-dataset). A local copy is available at [models_overview/datasets/Housing.csv](models_overview/datasets/Housing.csv), and the notebooks can also download the dataset with `kagglehub`.
 
 ## Running the Notebooks
 

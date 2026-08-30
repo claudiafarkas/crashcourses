@@ -1,6 +1,6 @@
 # Crash Courses
 
-Crash Courses is a growing, notebook-based data-science curriculum built to turn concepts into practical judgment. It is a place to relearn core data-science foundations, prepare for interviews, sharpen Python and SQL skills, and build a portfolio of work that explains both the implementation and the decisions behind it.
+Crash Courses is a growing, notebook-based data-science reference project. It is a place to relearn core data-science foundations, prepare for interviews, sharpen Python and SQL skills, and build a portfolio of work that explains both the implementation and the decisions behind it.
 
 The notebooks are intentionally text-heavy. Each one should make the reasoning visible: what problem is being solved, why a method fits, how the result is evaluated, where it can fail, and what someone should do with the result.
 
@@ -14,49 +14,49 @@ The notebooks are intentionally text-heavy. Each one should make the reasoning v
 
 ## Start Here
 
-Think of [Foundations & Models](models_overview/README.md) as Unit 0: it establishes the workflow used across the repository. The remaining topic areas can stand on their own, though the recommended learning path is to explore [Modern ML & Responsible AI](modern_ml/README.md) next and complete either the churn or forecasting project in [Applied Case Studies](case_studies/README.md) before trying to finish everything else.
+Think of [Foundations &amp; Models](models_overview/README.md) as Unit 0: it establishes the workflow used across the repository. The remaining topic areas can stand on their own, though the recommended learning path is to explore [Modern ML &amp; Responsible AI](modern_ml/README.md) next and complete either the churn or forecasting project in [Applied Case Studies](case_studies/README.md) before trying to finish everything else.
 
 ## Table of Contents
 
 ### Unit 0: Foundations & Models
 
-| Notebook | Focus |
-| --- | --- |
-| [Preprocessing](models_overview/preprocessing.ipynb) | Missing values, encoding, scaling, transformations, and leakage-safe pipelines. |
-| [Supervised Learning](models_overview/supervised_learning.ipynb) | Regression and classification with the housing-prices dataset. |
-| [Model Evaluation & Error Analysis](models_overview/model_evaluation_error_analysis.ipynb) | Baselines, validation, metrics, thresholds, calibration, and error slices. |
-| [Unsupervised Learning](models_overview/unsupervised_learning.ipynb) | Finding structure in unlabeled data. |
+| Notebook                                                                                      | Focus                                                                           |
+| --------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| [Preprocessing](models_overview/preprocessing.ipynb)                                           | Missing values, encoding, scaling, transformations, and leakage-safe pipelines. |
+| [Supervised Learning](models_overview/supervised_learning.ipynb)                               | Regression and classification with the housing-prices dataset.                  |
+| [Model Evaluation &amp; Error Analysis](models_overview/model_evaluation_error_analysis.ipynb) | Baselines, validation, metrics, thresholds, calibration, and error slices.      |
+| [Unsupervised Learning](models_overview/unsupervised_learning.ipynb)                           | Finding structure in unlabeled data.                                            |
 
 ### Unit 1: Modern ML & Responsible AI
 
-| Notebook | Focus |
-| --- | --- |
-| [RAG from Scratch](modern_ml/rag_from_scratch.ipynb) | Ingestion, chunking, embeddings, retrieval, generation, and failure modes. |
-| [LLM Evaluation](modern_ml/llm_evaluation.ipynb) | Evaluation sets, retrieval quality, groundedness, relevance, latency, and cost. |
-| [Model Explainability](modern_ml/model_explainability.ipynb) | Global and local explanations, importance, partial dependence, and SHAP. |
-| [Responsible AI & Fairness](modern_ml/responsible_ai_fairness.ipynb) | Bias, proxy variables, subgroup evaluation, privacy, and safeguards. |
+| Notebook                                                                | Focus                                                                           |
+| ----------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| [RAG from Scratch](modern_ml/rag_from_scratch.ipynb)                     | Ingestion, chunking, embeddings, retrieval, generation, and failure modes.      |
+| [LLM Evaluation](modern_ml/llm_evaluation.ipynb)                         | Evaluation sets, retrieval quality, groundedness, relevance, latency, and cost. |
+| [Model Explainability](modern_ml/model_explainability.ipynb)             | Global and local explanations, importance, partial dependence, and SHAP.        |
+| [Responsible AI &amp; Fairness](modern_ml/responsible_ai_fairness.ipynb) | Bias, proxy variables, subgroup evaluation, privacy, and safeguards.            |
 
 ### Unit 2: DS Interview Fundamentals
 
-| Notebook | Focus |
-| --- | --- |
-| [SQL for Data Science](interview_fundamentals/sql_for_data_science.ipynb) | Joins, CTEs, window functions, cohorts, funnels, and data-quality checks. |
-| [Statistics & Probability](interview_fundamentals/statistics_probability.ipynb) | Distributions, inference, hypothesis tests, and common reasoning traps. |
-| [A/B Testing & Experiment Design](interview_fundamentals/ab_testing_experiment_design.ipynb) | Metrics, power, effect size, significance, and experimental failure modes. |
-| [Time Series & Forecasting](interview_fundamentals/time_series_forecasting.ipynb) | Chronological validation, baselines, trend, seasonality, and uncertainty. |
-| [Python Coding Patterns](interview_fundamentals/python_coding_patterns.ipynb) | Complexity and reusable interview patterns for data-oriented coding problems. |
+| Notebook                                                                                        | Focus                                                                         |
+| ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| [SQL for Data Science](interview_fundamentals/sql_for_data_science.ipynb)                        | Joins, CTEs, window functions, cohorts, funnels, and data-quality checks.     |
+| [Statistics &amp; Probability](interview_fundamentals/statistics_probability.ipynb)              | Distributions, inference, hypothesis tests, and common reasoning traps.       |
+| [A/B Testing &amp; Experiment Design](interview_fundamentals/ab_testing_experiment_design.ipynb) | Metrics, power, effect size, significance, and experimental failure modes.    |
+| [Time Series &amp; Forecasting](interview_fundamentals/time_series_forecasting.ipynb)            | Chronological validation, baselines, trend, seasonality, and uncertainty.     |
+| [Python Coding Patterns](interview_fundamentals/python_coding_patterns.ipynb)                    | Complexity and reusable interview patterns for data-oriented coding problems. |
 
 ### Unit 3: Applied Case Studies
 
-| Project | Focus |
-| --- | --- |
+| Project                                                             | Focus                                                                                                                          |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
 | [Traditional DS Case Study](case_studies/traditional_ds_case_study/) | Choose customer churn or demand forecasting; show a baseline, validation, tuning, error analysis, and business recommendation. |
-| [Resume-Job Match RAG](case_studies/resume_job_match_rag/) | Apply the RAG and evaluation units to a grounded resume and job-description retrieval system. |
+| [Resume-Job Match RAG](case_studies/resume_job_match_rag/)           | Apply the RAG and evaluation units to a grounded resume and job-description retrieval system.                                  |
 
 ### Unit 4: ML System Design
 
-| Notebook | Focus |
-| --- | --- |
+| Notebook                                                                       | Focus                                                                                         |
+| ------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------- |
 | [ML System Design Exercises](ml_system_design/ml_system_design_exercises.ipynb) | Targets, data sources, metrics, inference modes, monitoring, drift, retraining, and rollback. |
 
 ### Unit 5: Engineering Practices

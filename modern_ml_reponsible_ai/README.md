@@ -1,6 +1,6 @@
-# Unit 1: Modern ML & Responsible AI
+# Topic: Modern ML & Responsible AI
 
-This unit builds modern AI systems deliberately: understand the mechanics, evaluate behavior with evidence, explain model decisions, and account for risks.
+Here I am learning the mechanics behind modern AI systems, how to evaluate them with evidence, and where their risks and limitations show up.
 
 ## Notebooks
 
@@ -9,4 +9,4 @@ This unit builds modern AI systems deliberately: understand the mechanics, evalu
 - [Model Explainability](model_explainability.ipynb): Global and local explanations, permutation importance, partial dependence, and SHAP.
 - [Responsible AI & Fairness](responsible_ai_fairness.ipynb): Bias, proxy variables, subgroup evaluation, privacy, and deployment safeguards.
 
-The RAG case study in Unit 3 applies the mechanics and evaluation practices introduced here.
+The RAG case study applies the mechanics and evaluation practices introduced here to a specific use case.

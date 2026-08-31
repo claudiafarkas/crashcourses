@@ -1,6 +1,6 @@
-# Unit 0: Foundations & Models
+# Topic: Foundations & Models
 
-This unit establishes the workflow used throughout the repository: prepare data, train models, evaluate them honestly, and communicate what the results mean.
+This is the starting point for the workflow I use throughout the repository: prepare data, train models, check the results honestly, and explain what they mean.
 
 ## Notebooks
 
@@ -9,4 +9,4 @@ This unit establishes the workflow used throughout the repository: prepare data,
 - [Model Evaluation & Error Analysis](model_evaluation_error_analysis.ipynb): Baselines, validation, metrics, thresholds, calibration, and error slices.
 - [Unsupervised Learning](unsupervised_learning.ipynb): Finding structure in unlabeled data.
 
-Start here before moving to the applied case studies or modern ML work.
+It is a useful place to start, but the other topics are designed to stand on their own too.

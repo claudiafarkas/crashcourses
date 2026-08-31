@@ -1,6 +1,6 @@
-# Unit 2: DS Interview Fundamentals
+# Topic: DS Interview Fundamentals
 
-This unit is a hands-on study track for common data-science interview topics. Each notebook should pair concise explanations with runnable exercises and clearly separated solutions.
+This is my hands-on practice area for common data-science interview topics. The notebooks pair short explanations with runnable exercises and clearly separated solutions.
 
 ## Notebooks
 

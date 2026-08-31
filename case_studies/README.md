@@ -1,6 +1,6 @@
-# Unit 3: Applied Case Studies
+# Topic: Applied Case Studies
 
-Case studies synthesize the earlier units into decision-ready work. Each project should state the business question, document the data and assumptions, establish a baseline, evaluate results, analyze errors, make a recommendation, and name limitations.
+These projects bring the earlier topics together into work I can walk someone through. Each one should state the question, show the data and assumptions, establish a baseline, evaluate results, analyze errors, make a recommendation, and name the limitations.
 
 ## Projects
 

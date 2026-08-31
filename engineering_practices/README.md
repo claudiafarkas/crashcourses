@@ -1,10 +1,10 @@
-# Unit 5: Engineering Practices
+# Topic: Engineering Practices
 
-Engineering practices are applied across the repository rather than taught in a standalone notebook. This unit is the standard used as projects become portfolio-ready.
+These are habits I apply across the repository rather than a standalone notebook course. They are what make a project easier to run, understand, and share.
 
 ## Checklist
 
-- Keep the root README and unit links accurate.
+- Keep the root README and topic links accurate.
 - Give every case study a concise README covering the question, data, method, results, limitations, and reproducible setup.
 - Use one root environment definition, such as `requirements.txt` or `pyproject.toml`.
 - Extract notebook code into `src/` only when it has meaningful reuse.

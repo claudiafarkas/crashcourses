@@ -1,0 +1,6 @@
+streamlit>=1.32.0
+nbformat>=5.9.0
+# Add your preferred vector store and LLM libraries as you implement:
+# chromadb
+# sentence-transformers
+# openai / ollama / google-generativeai

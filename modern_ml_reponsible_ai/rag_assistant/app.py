@@ -111,7 +111,7 @@ st.markdown("""
     .notebook-pill {
         display: flex;
         align-items: center;
-        gap: 8px;
+        justify-content: space-between;
         background: #FFFFFF;
         border: 1px solid #EAE2D8;
         border-radius: 9px;
@@ -121,6 +121,16 @@ st.markdown("""
         font-weight: 600;
         color: #31344A !important;
         border-left: 3.5px solid #6C5CE7;
+        text-decoration: none !important;
+        transition: all 0.2s ease;
+    }
+
+    .notebook-pill:hover {
+        background-color: #FAF5F0 !important;
+        border-color: #6C5CE7 !important;
+        color: #6C5CE7 !important;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(108, 92, 231, 0.1) !important;
     }
 
     /* Modern Light Buttons */
@@ -185,6 +195,9 @@ if "messages" not in st.session_state:
         }
     ]
 
+# GitHub repository configuration for live links
+GITHUB_REPO_NOTEBOOKS_URL = "https://github.com/claudiafarkas/crashcourses/blob/main/foundations_and_models"
+
 # Sidebar: Controls & Info
 with st.sidebar:
     st.markdown('<div class="sidebar-heading">☁️ Knowledge Base</div>', unsafe_allow_html=True)
@@ -193,7 +206,14 @@ with st.sidebar:
     if notebooks:
         for nb in notebooks:
             clean_name = nb.replace(".ipynb", "").replace("_", " ").title()
-            st.markdown(f'<div class="notebook-pill">📖 <strong>{clean_name}</strong></div>', unsafe_allow_html=True)
+            github_url = f"{GITHUB_REPO_NOTEBOOKS_URL}/{nb}"
+            st.markdown(
+                f'<a href="{github_url}" target="_blank" class="notebook-pill">'
+                f'<span>📖 <strong>{clean_name}</strong></span>'
+                f'<span style="font-size:0.75rem; color:#8C8FA7;">↗</span>'
+                f'</a>', 
+                unsafe_allow_html=True
+            )
     else:
         st.caption("No notebooks detected in `foundations_and_models`.")
         
@@ -251,7 +271,9 @@ for msg in st.session_state.messages:
             with st.expander(f"📑 Citing {len(msg['sources'])} notebook cell(s)"):
                 for idx, src in enumerate(msg["sources"], 1):
                     score_info = f" • {int(src['score'] * 100)}% match" if 'score' in src else ""
-                    st.markdown(f"**[{idx}] `{src.get('notebook', 'Unknown')}`** (Cell Type: `{src.get('cell_type', 'text')}`{score_info})")
+                    nb_name = src.get('notebook', 'Unknown')
+                    nb_url = f"{GITHUB_REPO_NOTEBOOKS_URL}/{nb_name}" if nb_name != 'Unknown' else "#"
+                    st.markdown(f"**[{idx}] [{nb_name}]({nb_url})** (Cell Type: `{src.get('cell_type', 'text')}`{score_info})")
                     st.code(src.get("content", ""), language="python" if src.get("cell_type") == "code" else "markdown")
 
 # Handle User Input
@@ -279,7 +301,9 @@ if user_input:
                 with st.expander(f"📑 Citing {len(response['sources'])} notebook cell(s)"):
                     for idx, src in enumerate(response["sources"], 1):
                         score_info = f" • {int(src['score'] * 100)}% match" if 'score' in src else ""
-                        st.markdown(f"**[{idx}] `{src.get('notebook', 'Unknown')}`** (Cell Type: `{src.get('cell_type', 'text')}`{score_info})")
+                        nb_name = src.get('notebook', 'Unknown')
+                        nb_url = f"{GITHUB_REPO_NOTEBOOKS_URL}/{nb_name}" if nb_name != 'Unknown' else "#"
+                        st.markdown(f"**[{idx}] [{nb_name}]({nb_url})** (Cell Type: `{src.get('cell_type', 'text')}`{score_info})")
                         st.code(src.get("content", ""), language="python" if src.get("cell_type") == "code" else "markdown")
 
     # 3. Add assistant response to history

@@ -21,9 +21,10 @@ Start with [Foundations &amp; Models](foundations_and_models/README.md) if you w
 
 ### Topic: Modern ML & Responsible AI
 
-| Notebook                                                                | Focus                                                                           |
+| Notebook / Application                                                  | Focus                                                                           |
 | ----------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
 | [RAG from Scratch](modern_ml_reponsible_ai/rag_from_scratch.ipynb)                     | Ingestion, chunking, embeddings, retrieval, generation, and failure modes.      |
+| [Cloud ☁️ (RAG Assistant)](modern_ml_reponsible_ai/rag_assistant/app.py)                | Localhost Streamlit assistant querying `foundations_and_models` with grounded notebook citations. |
 | [LLM Evaluation](modern_ml_reponsible_ai/llm_evaluation.ipynb)                         | Evaluation sets, retrieval quality, groundedness, relevance, latency, and cost. |
 | [Model Explainability](modern_ml_reponsible_ai/model_explainability.ipynb)             | Global and local explanations, importance, partial dependence, and SHAP.        |
 | [Responsible AI &amp; Fairness](modern_ml_reponsible_ai/responsible_ai_fairness.ipynb) | Bias, proxy variables, subgroup evaluation, privacy, and safeguards.            |
@@ -70,7 +71,7 @@ Most notebooks follow a similar shape:
 
 The supervised and unsupervised learning notebooks use the [Housing Prices Dataset](https://www.kaggle.com/datasets/yasserh/housing-prices-dataset). A local copy is available at [foundations_and_models/datasets/Housing.csv](foundations_and_models/datasets/Housing.csv), and the notebooks can also download the dataset with `kagglehub`.
 
-## Running the Notebooks
+## Running the Notebooks & Apps
 
 Install the dependencies required by the existing housing-model notebooks:
 
@@ -79,3 +80,13 @@ pip install kagglehub pandas matplotlib scikit-learn statsmodels
 ```
 
 Open a notebook in VS Code or Jupyter and run its cells in order. Dependencies and setup instructions for new case studies will be added with those projects.
+
+### Running the Cloud ☁️ RAG Assistant
+
+To launch the local documentation assistant in your browser:
+
+```bash
+cd modern_ml_reponsible_ai/rag_assistant
+pip install -r requirements.txt
+streamlit run app.py
+```

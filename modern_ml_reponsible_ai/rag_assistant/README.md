@@ -43,7 +43,7 @@ The current application uses `nbformat`, TF-IDF, cosine similarity, and Ollama. 
 
 ## Sandbox And Application Roles
 
-[`../rag_from_scratch.ipynb`](../rag_from_scratch.ipynb) is the learning sandbox. It walks through the RAG process from the beginning and makes intermediate data visible so you can experiment and understand why each step works.
+[`../rag_sandbox.ipynb`](../rag_sandbox.ipynb) is the learning sandbox. It walks through the RAG process from the beginning and makes intermediate data visible so you can experiment and understand why each step works.
 
 The sandbox includes:
 
@@ -86,7 +86,7 @@ The sandbox contains more instructional and exploratory material than the applic
 This separation is deliberate:
 
 ```text
-rag_from_scratch.ipynb = learning, experimentation, and inspection
+rag_sandbox.ipynb     = learning, experimentation, and inspection
 rag_engine.py          = reusable application logic
 app.py                 = Streamlit interaction and presentation
 ```

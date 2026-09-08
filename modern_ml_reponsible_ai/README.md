@@ -4,7 +4,7 @@ Here I am learning the mechanics behind modern AI systems, how to evaluate them 
 
 ## Notebooks & Applications
 
-- [RAG from Scratch](rag_from_scratch.ipynb): Document ingestion, chunking, embeddings, retrieval, generation, and failure modes.
+- [RAG Sandbox](rag_sandbox.ipynb): Document ingestion, chunking, embeddings, retrieval, generation, and failure modes.
 - [Cloud ☁️ (ML Foundations RAG Assistant)](rag_assistant/app.py): A lightweight, editorial-styled Streamlit chatbot that indexes and queries the notebooks in `foundations_and_models/` as live documentation with grounded cell citations.
 - [LLM Evaluation](llm_evaluation.ipynb): Evaluation sets, retrieval metrics, groundedness, relevance, latency, and cost.
 - [Model Explainability](model_explainability.ipynb): Global and local explanations, permutation importance, partial dependence, and SHAP.

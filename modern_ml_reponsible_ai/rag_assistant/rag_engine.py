@@ -1,8 +1,12 @@
-"""
-RAG Engine module for querying ML Foundations Notebooks.
+"""Application version of the RAG pipeline explored in ``rag_sandbox.ipynb``.
 
-You will implement the retrieval, embedding, and generation components here 
-(or port them directly from your rag_from_scratch.ipynb experiments).
+The sandbox exposes each stage for learning and debugging. This module keeps
+the same stages behind methods that Streamlit can call:
+
+1. ``index_notebooks`` parses and chunks the source notebooks, then builds the
+    TF-IDF retrieval index.
+2. ``query`` classifies the question, retrieves evidence, builds a grounded
+    prompt, and asks Ollama for the response.
 """
 
 import glob
@@ -78,6 +82,8 @@ class RAGEngine:
         else:
             self.notebooks_dir = notebooks_dir
 
+        # These are the notebook variables from the sandbox, stored on the
+        # engine instance so Streamlit can reuse them across reruns.
         self.indexed = False
         self.documents: List[Dict[str, Any]] = []
         self.vectorizer = None
@@ -93,12 +99,16 @@ class RAGEngine:
         ]
 
     def index_notebooks(self) -> int:
-        """
-        Parse notebooks, chunk cells (markdown + code), generate embeddings,
-        and store them in the vector database.
-        
+        """Build the in-memory index from the Foundations notebooks.
+
+        Sandbox mapping:
+        - Phase 1 extraction becomes ``notebook_cells`` here.
+        - Phase 2 concept and paired chunks become ``self.documents``.
+        - Phase 3 TF-IDF vectorization becomes ``self.vectorizer`` and
+          ``self.chunk_vectors``.
+
         Returns:
-            int: Number of indexed chunks.
+            int: Number of indexed concept and implementation chunks.
         """
         notebook_cells = []
         for file_path in sorted(glob.glob(os.path.join(self.notebooks_dir, "*.ipynb"))):
@@ -153,6 +163,8 @@ class RAGEngine:
                     "chunk_type": "implementation",
                 })
 
+        # The sandbox keeps these as separate lists for inspection. The app
+        # combines them into one searchable collection.
         self.documents = concept_chunks + implementation_chunks
         if not self.documents:
             raise ValueError(f"No Markdown or code cells found in {self.notebooks_dir}.")
@@ -171,16 +183,20 @@ class RAGEngine:
         conversation: List[Dict[str, str]] = None,
         model: str = "qwen2.5:7b",
     ) -> Dict[str, Any]:
-        """
-        Process a user query through the RAG pipeline:
-        1. Embed the query.
-        2. Retrieve top-k relevant chunks from vector store.
-        3. Construct prompt with context.
-        4. Generate grounded response with citations.
-        
+        """Run the application query path.
+
+        Sandbox mapping:
+        - Phase 4 topic and follow-up logic becomes the classification and
+          conversation handling below.
+        - Phase 3 ``search_chunks`` becomes the TF-IDF/cosine similarity loop.
+        - Phase 5 ``build_grounded_prompt`` becomes the prompt string below.
+        - Phase 5 Ollama call becomes the generated answer returned to the UI.
+
         Args:
             user_query: The natural language question.
             top_k: Number of retrieved chunks to provide as context.
+            conversation: Recent Streamlit messages for follow-up questions.
+            model: Ollama model name.
             
         Returns:
             dict with keys:

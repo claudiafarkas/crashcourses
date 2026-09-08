@@ -23,7 +23,7 @@ Start with [Foundations &amp; Models](foundations_and_models/README.md) if you w
 
 | Notebook / Application                                                  | Focus                                                                           |
 | ----------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| [RAG from Scratch](modern_ml_reponsible_ai/rag_from_scratch.ipynb)                     | Ingestion, chunking, embeddings, retrieval, generation, and failure modes.      |
+| [RAG Sandbox](modern_ml_reponsible_ai/rag_sandbox.ipynb)                               | Ingestion, chunking, embeddings, retrieval, generation, and failure modes.      |
 | [Cloud ☁️ (RAG Assistant)](modern_ml_reponsible_ai/rag_assistant/app.py)                | Localhost Streamlit assistant querying `foundations_and_models` with grounded notebook citations. |
 | [LLM Evaluation](modern_ml_reponsible_ai/llm_evaluation.ipynb)                         | Evaluation sets, retrieval quality, groundedness, relevance, latency, and cost. |
 | [Model Explainability](modern_ml_reponsible_ai/model_explainability.ipynb)             | Global and local explanations, importance, partial dependence, and SHAP.        |

@@ -93,6 +93,24 @@ st.markdown("""
         color: #2D3142 !important;
     }
 
+    .classification-read {
+        display: inline-flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin: 0.25rem 0 0.85rem;
+        font-size: 0.78rem;
+        color: #5C6075;
+    }
+
+    .classification-pill {
+        background: #F0EBFF;
+        border: 1px solid #DED4FF;
+        border-radius: 999px;
+        color: #5948B8;
+        padding: 0.25rem 0.65rem;
+        font-weight: 700;
+    }
+
     /* Sidebar Styling */
     [data-testid="stSidebar"] {
         background-color: #F4EFEA !important;
@@ -190,8 +208,10 @@ if "messages" not in st.session_state:
     st.session_state.messages = [
         {
             "role": "assistant",
-            "content": "☁️ **Hey there, I'm Cloud!** Your ML notebook companion. Ask me anything about your preprocessing pipelines, error analyses, regression models, or classification tricks in `foundations_and_models`!",
-            "sources": []
+            "content": "**Hey there, I'm Cloud!** Your ML notebook companion. Ask me anything about your preprocessing pipelines, error analyses, regression models, or classification tricks in `foundations_and_models`!",
+            "sources": [],
+            "topic": "general ML",
+            "question_type": "welcome",
         }
     ]
 
@@ -240,7 +260,9 @@ with st.sidebar:
             {
                 "role": "assistant",
                 "content": "☁️ Chat reset! What topic from your foundations notebooks shall we explore next?",
-                "sources": []
+                "sources": [],
+                "topic": "general ML",
+                "question_type": "welcome",
             }
         ]
         st.rerun()
@@ -249,13 +271,9 @@ with st.sidebar:
 st.markdown("""
 <div class="editorial-hero">
     <div class="editorial-tag">☁️ Cloud • Local RAG Studio</div>
-    <div class="hero-title">Ask <em>Cloud</em> anything about your Foundations.</div>
-    <p class="hero-sub">
-        A grounded retrieval assistant that parses, embeds, and searches your hands-on code, markdown commentary, and mathematical notes to answer modeling and pipeline questions with exact citations.
-    </p>
+    <div class="hero-title">Ask <em>Cloud</em> anything about your Machine Learning Foundations.</div>
     <div class="story-blurb">
-        📍 <strong>About Cloud ☁️ & The Knowledge Base:</strong><br>
-        <strong>Cloud ☁️</strong> is a dedicated local assistant created for the <em>Modern ML & Responsible AI</em> series. It treats the core curriculum in <code>foundations_and_models/</code> (covering Preprocessing, Supervised/Unsupervised Learning, and Model Evaluation) as living technical documentation. Instead of querying a generic LLM, Cloud indexes the actual notebook cells, extracts key concepts and code snippets, and grounds every answer in your verified notes.
+        <strong>Cloud</strong> is a dedicated local assistant created for the <em>Modern ML & Responsible AI</em> series. It treats the core curriculum in <code>foundations_and_models/</code> (covering Preprocessing, Supervised/Unsupervised Learning, and Model Evaluation) as living technical documentation. Instead of querying a generic LLM, Cloud indexes the actual notebook cells, extracts key concepts and code snippets, and grounds every answer in your verified notes.
     </div>
 </div>
 """, unsafe_allow_html=True)
@@ -265,6 +283,15 @@ for msg in st.session_state.messages:
     avatar = "☁️" if msg["role"] == "assistant" else "👤"
     with st.chat_message(msg["role"], avatar=avatar):
         st.markdown(msg["content"])
+
+        if msg.get("topic"):
+            st.markdown(
+                f'<div class="classification-read">'
+                f'<span class="classification-pill">Topic: {msg["topic"]}</span>'
+                f'<span class="classification-pill">Question type: {msg.get("question_type", "unknown")}</span>'
+                f'</div>',
+                unsafe_allow_html=True,
+            )
         
         # Display sources accordion if sources are attached
         if msg.get("sources"):
@@ -292,9 +319,21 @@ if user_input:
     # 2. Query RAG Engine and display response
     with st.chat_message("assistant", avatar="☁️"):
         with st.spinner("☁️ Cloud is skimming your notebooks..."):
-            response = st.session_state.rag_engine.query(user_input, top_k=top_k)
+            response = st.session_state.rag_engine.query(
+                user_input,
+                top_k=top_k,
+                conversation=st.session_state.messages,
+            )
             
             st.markdown(response["answer"])
+
+            st.markdown(
+                f'<div class="classification-read">'
+                f'<span class="classification-pill">Cloud read: {response.get("topic", "general ML")}</span>'
+                f'<span class="classification-pill">Question type: {response.get("question_type", "general question")}</span>'
+                f'</div>',
+                unsafe_allow_html=True,
+            )
             
             # Show sources
             if response.get("sources"):
@@ -310,5 +349,7 @@ if user_input:
     st.session_state.messages.append({
         "role": "assistant",
         "content": response["answer"],
-        "sources": response.get("sources", [])
+        "sources": response.get("sources", []),
+        "topic": response.get("topic", "general ML"),
+        "question_type": response.get("question_type", "general question"),
     })

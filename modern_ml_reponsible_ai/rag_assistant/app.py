@@ -111,6 +111,30 @@ st.markdown("""
         font-weight: 700;
     }
 
+    .status-pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        padding: 0.25rem 0.7rem;
+        font-weight: 800;
+        font-size: 0.72rem;
+        letter-spacing: 0.02em;
+        cursor: help;
+    }
+
+    .status-grounded {
+        background: rgba(41, 180, 115, 0.12);
+        color: #0E7D57;
+        border: 1px solid rgba(41, 180, 115, 0.25);
+    }
+
+    .status-fallback {
+        background: rgba(236, 162, 67, 0.12);
+        color: #A15A00;
+        border: 1px solid rgba(236, 162, 67, 0.26);
+    }
+
     /* Sidebar Styling */
     [data-testid="stSidebar"] {
         background-color: #F4EFEA !important;
@@ -285,16 +309,22 @@ for msg in st.session_state.messages:
         st.markdown(msg["content"])
 
         if msg.get("topic"):
+            status = msg.get("retrieval_status", "grounded")
+            status_label = "Grounded" if status == "grounded" else "Fallback"
+            status_class = "status-grounded" if status == "grounded" else "status-fallback"
             st.markdown(
                 f'<div class="classification-read">'
+                f'<span class="status-pill {status_class}">{status_label}</span>'
                 f'<span class="classification-pill">Topic: {msg["topic"]}</span>'
                 f'<span class="classification-pill">Question type: {msg.get("question_type", "unknown")}</span>'
                 f'</div>',
                 unsafe_allow_html=True,
             )
+
+        if msg.get("retrieval_status") == "fallback":
+            st.warning("⚠️ Fallback mode: no strong notebook evidence matched this question, so the answer is based on general model knowledge rather than the local notebook corpus.")
         
-        # Display sources accordion if sources are attached
-        if msg.get("sources"):
+        if msg.get("retrieval_status") == "grounded" and msg.get("sources"):
             with st.expander(f"📑 Citing {len(msg['sources'])} notebook cell(s)"):
                 for idx, src in enumerate(msg["sources"], 1):
                     score_info = f" • {int(src['score'] * 100)}% match" if 'score' in src else ""
@@ -318,7 +348,7 @@ if user_input:
 
     # 2. Query RAG Engine and display response
     with st.chat_message("assistant", avatar="☁️"):
-        with st.spinner("☁️ Cloud is skimming your notebooks..."):
+        with st.spinner("Cloud is skimming your notebooks..."):
             response = st.session_state.rag_engine.query(
                 user_input,
                 top_k=top_k,
@@ -327,16 +357,23 @@ if user_input:
             
             st.markdown(response["answer"])
 
+            status = response.get("retrieval_status", "grounded")
+            status_label = "Grounded" if status == "grounded" else "Fallback"
+            status_class = "status-grounded" if status == "grounded" else "status-fallback"
             st.markdown(
                 f'<div class="classification-read">'
+                f'<span class="status-pill {status_class}">{status_label}</span>'
                 f'<span class="classification-pill">Cloud read: {response.get("topic", "general ML")}</span>'
                 f'<span class="classification-pill">Question type: {response.get("question_type", "general question")}</span>'
                 f'</div>',
                 unsafe_allow_html=True,
             )
+
+            if response.get("retrieval_status") == "fallback":
+                st.warning("⚠️ Fallback mode: no strong notebook evidence matched this question, so the answer is based on general model knowledge rather than the local notebook corpus.")
             
-            # Show sources
-            if response.get("sources"):
+            # Show sources only when retrieval is meaningfully grounded
+            if response.get("retrieval_status") == "grounded" and response.get("sources"):
                 with st.expander(f"📑 Citing {len(response['sources'])} notebook cell(s)"):
                     for idx, src in enumerate(response["sources"], 1):
                         score_info = f" • {int(src['score'] * 100)}% match" if 'score' in src else ""
@@ -352,4 +389,5 @@ if user_input:
         "sources": response.get("sources", []),
         "topic": response.get("topic", "general ML"),
         "question_type": response.get("question_type", "general question"),
+        "retrieval_status": response.get("retrieval_status", "grounded"),
     })

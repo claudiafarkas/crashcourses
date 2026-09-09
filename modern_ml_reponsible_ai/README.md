@@ -8,7 +8,7 @@ Here I am learning the mechanics behind modern AI systems, how to evaluate them 
 - [Cloud ☁️ (ML Foundations RAG Assistant)](rag_assistant/app.py): A lightweight, editorial-styled Streamlit chatbot that indexes and queries the notebooks in `foundations_and_models/` as live documentation with grounded cell citations.
 - [LLM Evaluation](llm_evaluation.ipynb): Evaluation sets, retrieval metrics, groundedness, relevance, latency, and cost.
 - [Model Explainability](model_explainability.ipynb): Global and local explanations, permutation importance, partial dependence, and SHAP.
-- [Responsible AI & Fairness](responsible_ai_fairness.ipynb): Bias, proxy variables, subgroup evaluation, privacy, and deployment safeguards.
+- [Responsible AI &amp; Fairness](responsible_ai_fairness.ipynb): Bias, proxy variables, subgroup evaluation, privacy, and deployment safeguards.
 
 The RAG case study applies the mechanics and evaluation practices introduced here to a specific use case.
 

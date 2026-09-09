@@ -23,7 +23,7 @@ import ollama
 TOPIC_KEYWORDS = {
     "preprocessing": {"preprocessing", "missing", "imputation", "encoding", "categorical", "scaling", "leakage"},
     "model evaluation": {"evaluation", "metric", "metrics", "mae", "rmse", "roc", "auc", "precision", "recall", "calibration", "threshold", "error"},
-    "supervised learning": {"regression", "classification", "ridge", "lasso", "logistic", "random forest", "decision tree", "prediction"},
+    "supervised learning": {"supervised", "regression", "classification", "ridge", "lasso", "logistic", "random forest", "decision tree", "prediction"},
     "unsupervised learning": {"clustering", "cluster", "k-means", "dbscan", "pca", "anomaly", "unsupervised", "dimensionality"},
 }
 
@@ -35,18 +35,30 @@ def classify_question(question: str) -> Dict[str, Any]:
         topic: sum(keyword in normalized_question for keyword in keywords)
         for topic, keywords in TOPIC_KEYWORDS.items()
     }
-    topic = max(topic_scores, key=topic_scores.get)
-    if topic_scores[topic] == 0:
+    matched_topics = [
+        topic for topic, score in topic_scores.items()
+        if score > 0
+    ]
+    if {
+        "supervised learning",
+        "unsupervised learning",
+    }.issubset(matched_topics):
+        topic = "supervised vs unsupervised learning"
+    elif matched_topics:
+        topic = max(matched_topics, key=lambda item: topic_scores[item])
+    else:
         topic = "general ML"
 
     if any(marker in normalized_question for marker in {"break down", "simpler", "clarify", "more"}):
         question_type = "clarification"
+    elif any(marker in normalized_question for marker in {"compare", "versus", "difference", "better"}):
+        question_type = "comparison"
+    elif "how different" in normalized_question:
+        question_type = "comparison"
     elif any(marker in normalized_question for marker in {"how", "show", "code", "implement"}):
         question_type = "implementation"
     elif any(marker in normalized_question for marker in {"why", "explain", "mean", "define", "what is"}):
         question_type = "concept explanation"
-    elif any(marker in normalized_question for marker in {"compare", "versus", "difference", "better"}):
-        question_type = "comparison"
     else:
         question_type = "general question"
 
@@ -220,26 +232,44 @@ class RAGEngine:
 
         query_vector = self.vectorizer.transform([retrieval_query])
         similarities = cosine_similarity(query_vector, self.chunk_vectors).ravel()
+        ranked_indices = np.argsort(similarities)[::-1]
+
+        # TF-IDF can legitimately return zero similarity for broad or vocabulary-miss
+        # queries. In that case, keep the nearest chunks instead of dropping all
+        # evidence silently so the UI still shows citations and the prompt stays grounded.
+        positive_indices = [index for index in ranked_indices if similarities[index] > 0]
+        fallback_indices = [index for index in ranked_indices if similarities[index] <= 0]
+        selected_indices = positive_indices[:top_k]
+        if len(selected_indices) < top_k:
+            remaining_slots = top_k - len(selected_indices)
+            selected_indices.extend(fallback_indices[:remaining_slots])
+
         sources = []
-        for index in np.argsort(similarities)[::-1]:
-            if similarities[index] <= 0:
-                continue
+        for index in selected_indices:
             document = self.documents[index]
             sources.append({
                 **document,
                 "score": round(float(similarities[index]), 4),
             })
-            if len(sources) >= top_k:
-                break
 
-        formatted_sources = "\n\n".join(
-            f"Source {index}: {source['notebook']} ({source['chunk_type']}, score={source['score']})\n"
-            f"{source['content']}"
-            for index, source in enumerate(sources, start=1)
-        )
+        max_similarity = max((float(doc.get("score", 0.0)) for doc in sources), default=0.0) if sources else 0.0
+        retrieval_status = "grounded" if max_similarity >= 0.10 else "fallback"
+
+        if retrieval_status == "fallback":
+            sources = []
+            formatted_sources = "" 
+            guidance = """No notebook evidence was retrieved for this question. Answer cautiously and clearly state that the response is based on general model knowledge rather than the notebook corpus. Do not pretend the answer is directly sourced from the notebooks when no evidence was found."""
+        else:
+            formatted_sources = "\n\n".join(
+                f"Source {index}: {source['notebook']} ({source['chunk_type']}, score={source['score']})\n"
+                f"{source['content']}"
+                for index, source in enumerate(sources, start=1)
+            )
+            guidance = """Answer using only the retrieved notebook evidence below. Use recent conversation only to understand follow-up references. Explain clearly, do not invent unsupported facts, and say when the sources are insufficient. Mention the source notebook for factual claims."""
+
         prompt = f"""You are Cloud, an assistant for the ML Foundations notebooks.
 
-Answer using only the retrieved notebook evidence below. Use recent conversation only to understand follow-up references. Explain clearly, do not invent unsupported facts, and say when the sources are insufficient. Mention the source notebook for factual claims.
+{guidance}
 
 Topic: {topic}
 Question type: {classification['question_type']}
@@ -263,4 +293,5 @@ Retrieved notebook evidence:
             "topic": topic,
             "question_type": classification["question_type"],
             "topic_scores": classification["topic_scores"],
+            "retrieval_status": retrieval_status,
         }
